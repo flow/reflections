@@ -1,15 +1,32 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.reflections</groupId>
+    <!-- Project information -->
+    <name>Reflections</name>
+    <groupId>com.flowpowered</groupId>
     <artifactId>reflections</artifactId>
     <version>0.9.9-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <inceptionYear>2013</inceptionYear>
+    <url>http://flowpowered.com</url>
+    <description>Java runtime metadata analysis library, forked from original by ronmamo.</description>
 
-    <name>Reflections</name>
-    <description>Reflections - a Java runtime metadata analysis</description>
-    <url>http://github.com/ronmamo/reflections</url>
+    <!-- Parent information -->
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
 
+    <!-- Build properties -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <buildNumber>0</buildNumber>
+        <ciSystem>unknown</ciSystem>
+        <commit>unknown</commit>
+    </properties>
+
+    <!-- License information -->
     <licenses>
         <license>
             <name>WTFPL</name>
@@ -21,183 +38,226 @@
         </license>
     </licenses>
 
-    <scm>
-        <url>https://github.com/ronmamo/reflections/issues</url>
-        <connection>scm:git:git://github.com/ronmamo/reflections.git</connection>
-    </scm>
+    <!-- Organization information -->
+    <organization>
+        <name>Spout LLC</name>
+        <url>https://spout.org</url>
+    </organization>
 
-    <issueManagement>
-        <url>https://github.com/ronmamo/reflections/issues</url>
-        <system>GitHub Issues</system>
-    </issueManagement>
-
-    <mailingLists>
-        <mailingList>
-            <name>google-code-reflections</name>
-            <archive>http://groups.google.com/group/google-code-reflections</archive>
-        </mailingList>
-    </mailingLists>
-
+    <!-- Project developers -->
     <developers>
         <developer>
-            <email>ronmamo at gmail</email>
+            <id>kitskub</id>
+            <name>Jack Huey</name>
+            <email>kitskub@gmail.com</email>
+        </developer>
+        <developer>
+            <id>Wolf480pl</id>
+            <name>Wolf480pl</name>
+            <email>wolf480@interia.pl</email>
+        </developer>
+        <developer>
+            <id>Wulfspider</id>
+            <name>Luke Spragg</name>
+            <email>the@wulf.im</email>
         </developer>
     </developers>
 
-    <distributionManagement>
+    <!-- Source code access -->
+    <scm>
+        <connection>scm:git:git://github.com/flow/reflections.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:flow/reflections.git</developerConnection>
+        <url>https://github.com/flow/reflections</url>
+    </scm>
+
+    <!-- Continuous integration -->
+    <ciManagement>
+        <system>travis</system>
+        <url>https://travis-ci.org/flow/reflections</url>
+    </ciManagement>
+
+    <!-- Issue management -->
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/flow/reflections/issues</url>
+    </issueManagement>
+
+    <!-- Dependency repositories -->
+    <repositories>
         <repository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>github</id>
-            <url>scm:git:ssh://git@github.com/ronmamo/reflections.git</url>
+            <id>sonatype-nexus-releases</id>
+            <url>https://oss.sonatype.org/content/repositories/releases</url>
         </repository>
-    </distributionManagement>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 
+    <!-- Build plugin repositories -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-nexus-releases</id>
+            <url>https://oss.sonatype.org/content/repositories/releases</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!-- Project dependencies -->
     <dependencies>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>${javassist.version}</version>
-            <optional>false</optional> <!-- case: when not actually scanning with javassist or if using {@link Reflections.collect()} -->
-        </dependency>
-
+        <!-- Transitive -->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>annotations</artifactId>
             <version>2.0.1</version>
             <scope>compile</scope>
+            <!-- 3.0.0 available -->
         </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.6.1</version>
-            <optional>true</optional> <!-- case: when logging is not needed -->
-        </dependency>
-
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
-            <optional>false</optional> <!-- case: when no xml de/serialization -->
-        </dependency>
-
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>1.4</version>
-            <optional>true</optional> <!-- case: when no json de/serialization -->
+            <scope>compile</scope>
+            <optional>true</optional>
+            <!-- case: when no json de/serialization -->
         </dependency>
-
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>15.0</version>
+            <scope>compile</scope>
+            <!-- 18.0 available -->
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+            <scope>compile</scope>
+            <optional>false</optional>
+            <!-- case: when no xml de/serialization -->
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope>
-            <optional>true</optional> <!-- case: when no servlet environment -->
+            <optional>true</optional>
+            <!-- case: when no servlet environment -->
         </dependency>
-
-        <!-- use any implementation you like -->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.18.2-GA</version>
+            <scope>compile</scope>
+            <optional>false</optional>
+            <!-- case: when not actually scanning with javassist or if using {@link Reflections.collect()} -->
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.1</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+            <!-- case: when logging is not needed -->
+            <!-- 1.7.7 available -->
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.6.1</version>
-            <optional>true</optional> <!-- case: when other logging implementation used or logging is not needed -->
+            <optional>true</optional>
+            <!-- case: when other logging implementation used or logging is not needed -->
+            <!-- 1.7.7 available -->
         </dependency>
-
+        <!-- Testing only -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.5</version>
             <scope>test</scope>
+            <!-- 4.11 available -->
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-vfs2</artifactId>
             <version>2.0</version>
             <scope>provided</scope>
-            <optional>true</optional> <!-- case: -->
+            <optional>true</optional>
+            <!-- case: -->
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>latest</id>
-            <properties>
-                <guava.version>15.0</guava.version>
-                <javassist.version>3.18.2-GA</javassist.version>
-            </properties>
-            <activation>
-                <jdk>!1.5</jdk>
-            </activation>
-        </profile>
-
-        <profile>
-            <id>jdk1.5</id>
-            <properties>
-                <guava.version>10.0</guava.version>
-                <javassist.version>3.16.1-GA</javassist.version>
-            </properties>
-            <activation>
-                <jdk>1.5</jdk>
-            </activation>
-        </profile>
-
-        <profile>
-            <id>build</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>javadoc</goal>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <reportOutputDirectory>javadoc</reportOutputDirectory>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
+    <!-- Build configuration -->
     <build>
+        <defaultGoal>clean install</defaultGoal>
+
+        <!-- Resources to include -->
+        <resources>
+            <!-- Static resources -->
+            <resource>
+                <filtering>false</filtering>
+                <directory>.</directory>
+                <targetPath>.</targetPath>
+                <includes>
+                    <include>LICENSE.txt</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <!-- Build plugins -->
         <plugins>
+            <!-- JAR creation plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
                 <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>javadoc</directory>
-                        </fileset>
-                    </filesets>
+                    <archive>
+                        <manifestEntries>
+                            <Specification-Title>${project.name}</Specification-Title>
+                            <Specification-Version>${project.version}+${ciSystem}-b${buildNumber}.git-${commit}</Specification-Version>
+                            <Specification-Vendor>${project.organization.name} - ${project.organization.url}</Specification-Vendor>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- Javadoc creation plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <author>false</author>
+                    <version>false</version>
+                </configuration>
+            </plugin>
+            <!-- Coveralls reporting plugin  -->
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>2.2.0</version>
+            </plugin>
+            <!-- Cobertura test coverage plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <format>xml</format>
+                    <maxmem>256m</maxmem>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
