@@ -12,9 +12,9 @@ Using Reflections you can query your metadata such as:
 Add Reflections to your project. for maven projects just add this dependency:
 ```xml
 <dependency>
-    <groupId>org.reflections</groupId>
+    <groupId>com.flowpowered</groupId>
     <artifactId>reflections</artifactId>
-    <version>0.9.9-RC2</version>
+    <version>0.9.9-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -96,7 +96,7 @@ Set<Member> usages =
   * Make sure to scan all the transitive relevant urls (your packages and relevant 3rd party).
 
 *Browse the [javadoc](http://reflections.googlecode.com/svn/trunk/reflections/javadoc/apidocs/index.html?org/reflections/Reflections.html) for more info.* 
-*Also, browse the [tests directory](https://github.com/ronmamo/reflections/tree/master/src/test/java/org/reflections) to see some more examples.*
+*Also, browse the [tests directory](https://github.com/flow/reflections/tree/master/src/test/java/org/reflections) to see some more examples.*
 
 ###ReflectionUtils
 ReflectionsUtils contains some convenient Java reflection helper methods for getting types/constructors/methods/fields/annotations matching some predicates, generally in the form of *getAllXXX(type, withYYY)
